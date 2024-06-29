@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Omnibar (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Omnibar (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
