@@ -16,22 +16,34 @@ using Windows.Foundation.Collections;
 
 namespace Omnibar
 {
+	public sealed class StandardItem
+	{
+		public string Name { get; }
+
+		public string Path { get; }
+
+		public StandardItem(string name)
+		{
+			Name = name;
+		}
+	}
+
 	public sealed partial class MainWindow : Window
 	{
-		public ObservableCollection<string> Items { get; } = [];
+		public ObservableCollection<StandardItem> Items { get; } = [];
 
 		public MainWindow()
 		{
+			Items.Add(new("Item 1"));
+			Items.Add(new("Item 2"));
+			Items.Add(new("Item 3"));
+			Items.Add(new("Item 4"));
+			Items.Add(new("Item 5"));
+			Items.Add(new("Item 6"));
+
 			this.InitializeComponent();
 
 			ExtendsContentIntoTitleBar = true;
-
-			Items.Add("Item 1");
-			Items.Add("Item 2");
-			Items.Add("Item 3");
-			Items.Add("Item 4");
-			Items.Add("Item 5");
-			Items.Add("Item 6");
 		}
 	}
 }

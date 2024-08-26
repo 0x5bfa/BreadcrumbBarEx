@@ -11,16 +11,17 @@
 		<MicaBackdrop />
 	</Window.SystemBackdrop>
 
-	<Grid>
+	<Grid RequestedTheme="Dark">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 
 		<Grid.Resources>
 			<ResourceDictionary>
 				<ResourceDictionary.MergedDictionaries>
-					<ResourceDictionary Source="ms-appx:///BreadcrumbBarItemEx.xaml" />
+					<ResourceDictionary Source="ms-appx:///BreadcrumbBar.xaml" />
 				</ResourceDictionary.MergedDictionaries>
 			</ResourceDictionary>
 		</Grid.Resources>
@@ -29,6 +30,7 @@
 
 		<Grid
 			Grid.Row="1"
+			Height="40"
 			Margin="12"
 			Padding="24,2"
 			VerticalAlignment="Center"
@@ -36,14 +38,19 @@
 			BorderBrush="{ThemeResource SystemColorControlAccentBrush}"
 			BorderThickness="2"
 			CornerRadius="20">
-			<BreadcrumbBar VerticalAlignment="Center" ItemsSource="{x:Bind Items, Mode=OneWay}">
-				<BreadcrumbBar.ItemTemplate>
-					<DataTemplate>
-						<local:BreadcrumbBarItemEx Style="{StaticResource DefaultBreadcrumbBarItemExStyle}" />
-					</DataTemplate>
-				</BreadcrumbBar.ItemTemplate>
-			</BreadcrumbBar>
+			<Border Background="Black">
+				<local:BreadcrumbBarEx VerticalAlignment="Center" ItemsSource="{x:Bind Items, Mode=OneWay}">
+					<local:BreadcrumbBarEx.ItemTemplate>
+						<DataTemplate x:DataType="local:StandardItem">
+							<local:BreadcrumbBarExItem VerticalAlignment="Center" AutomationProperties.Name="{x:Bind Name, Mode=OneWay}">
+								<TextBlock Text="{x:Bind Name, Mode=OneWay}" />
+							</local:BreadcrumbBarExItem>
+						</DataTemplate>
+					</local:BreadcrumbBarEx.ItemTemplate>
+				</local:BreadcrumbBarEx>
+			</Border>
 		</Grid>
+
 	</Grid>
 
 </Window>

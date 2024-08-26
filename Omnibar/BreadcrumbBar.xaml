@@ -1,14 +1,23 @@
-<ResourceDictionary
+﻿<ResourceDictionary
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
 	xmlns:local="using:Omnibar">
 
-	<StaticResource x:Key="BreadcrumbBarBackgroundBrush" ResourceKey="ControlFillColorDefaultBrush" />
+	<Style BasedOn="{StaticResource DefaultBreadcrumbBarExItemStyle}" TargetType="local:BreadcrumbBarExItem" />
 
-	<Style BasedOn="{StaticResource DefaultBreadcrumbBarItemExStyle}" TargetType="local:BreadcrumbBarItemEx" />
+	<Style TargetType="local:BreadcrumbBarEx">
+		<Setter Property="AutomationProperties.LandmarkType" Value="Navigation" />
+		<Setter Property="IsTabStop" Value="False" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="local:BreadcrumbBarEx">
+					<ItemsRepeater x:Name="PART_ItemsRepeater" />
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
 
-	<Style x:Key="DefaultBreadcrumbBarItemExStyle" TargetType="local:BreadcrumbBarItemEx">
+	<Style x:Key="DefaultBreadcrumbBarExItemStyle" TargetType="local:BreadcrumbBarExItem">
 		<Setter Property="Background" Value="{ThemeResource BreadcrumbBarBackgroundBrush}" />
 		<Setter Property="BorderBrush" Value="{ThemeResource BreadcrumbBarBorderBrush}" />
 		<Setter Property="FocusVisualMargin" Value="1" />
@@ -25,7 +34,7 @@
 		<Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
 		<Setter Property="Template">
 			<Setter.Value>
-				<ControlTemplate TargetType="local:BreadcrumbBarItemEx">
+				<ControlTemplate TargetType="local:BreadcrumbBarExItem">
 					<Grid x:Name="PART_LayoutRoot" CornerRadius="{TemplateBinding CornerRadius}">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition x:Name="PART_ContentColumn" Width="Auto" />
@@ -39,19 +48,19 @@
 								ShouldConstrainToRootBounds="False" />
 						</Grid.Resources>
 
-						<!--  Item Button  -->
+						<!--  Item (Normal)  -->
 						<Button
 							x:Name="PART_ItemButton"
-							Height="34"
+							Height="36"
 							x:DeferLoadStrategy="Lazy"
 							AutomationProperties.AccessibilityView="Raw"
+							Background="Transparent"
 							BorderThickness="0"
 							Control.IsTemplateFocusTarget="True"
 							FocusVisualMargin="-3"
 							IsTabStop="False"
-							Style="{StaticResource BreadcrumbBarItemButtonStyle}">
+							Style="{StaticResource DefaultButtonStyle}">
 
-							<!--  This is the Button Content  -->
 							<Grid AutomationProperties.AccessibilityView="Raw">
 								<ContentPresenter
 									x:Name="PART_ItemContentPresenter"
@@ -79,51 +88,7 @@
 
 						</Button>
 
-						<!--  Chevron Button  -->
-						<Button
-							x:Name="PART_ChevronButton"
-							Grid.Column="1"
-							Width="18"
-							Height="34"
-							Padding="0"
-							AutomationProperties.AccessibilityView="Raw"
-							BorderThickness="0"
-							Control.IsTemplateFocusTarget="True"
-							FocusVisualMargin="-3"
-							IsTabStop="False"
-							Style="{StaticResource BreadcrumbBarItemButtonStyle}">
-
-							<Button.Flyout>
-								<MenuFlyout Placement="Bottom">
-									<MenuFlyoutItem Text="Folder 1" />
-									<MenuFlyoutItem Text="Folder 2" />
-									<MenuFlyoutItem Text="Folder 3" />
-								</MenuFlyout>
-							</Button.Flyout>
-
-							<AnimatedIcon
-								Width="{ThemeResource BreadcrumbBarChevronFontSize}"
-								Height="{ThemeResource BreadcrumbBarChevronFontSize}"
-								HorizontalAlignment="Center"
-								VerticalAlignment="Center"
-								AnimatedIcon.State="NormalOff"
-								RenderTransformOrigin="0.5, 0.5">
-								<animatedvisuals:AnimatedChevronRightDownSmallVisualSource />
-								<AnimatedIcon.FallbackIconSource>
-									<FontIconSource
-										FontFamily="{StaticResource SymbolThemeFontFamily}"
-										FontSize="{ThemeResource BreadcrumbBarChevronFontSize}"
-										Glyph="&#xE76C;"
-										IsTextScaleFactorEnabled="False" />
-								</AnimatedIcon.FallbackIconSource>
-								<AnimatedIcon.RenderTransform>
-									<RotateTransform x:Name="ExpandCollapseChevronRotateTransform" Angle="0" />
-								</AnimatedIcon.RenderTransform>
-							</AnimatedIcon>
-
-						</Button>
-
-						<!--  ContentPresenter to be shown only when the rendered item is the Current Item  -->
+						<!--  Item (Last)  -->
 						<ContentPresenter
 							x:Name="PART_LastItemContentPresenter"
 							Padding="1,3"
@@ -142,7 +107,7 @@
 							LineHeight="20"
 							Visibility="Collapsed" />
 
-						<!--  ContentPresenter to be shown only when the rendered item is a drop down Item  -->
+						<!--  EllipsisDropDownItem  -->
 						<ContentPresenter
 							x:Name="PART_EllipsisDropDownItemContentPresenter"
 							HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -156,21 +121,27 @@
 							FontWeight="Normal"
 							Visibility="Collapsed" />
 
-						<!--  (Hidden but needed to make this work in the base class)  -->
-						<TextBlock
-							x:Name="PART_ChevronTextBlock"
+						<!--  Chevron  -->
+						<Button
+							x:Name="PART_ChevronButton"
 							Grid.Column="1"
-							Padding="{ThemeResource BreadcrumbBarChevronPadding}"
+							Height="36"
+							Padding="4,0"
 							HorizontalAlignment="Center"
 							VerticalAlignment="Center"
-							x:Load="False"
 							AutomationProperties.AccessibilityView="Raw"
+							Background="Transparent"
+							BorderThickness="0"
 							FontFamily="{ThemeResource SymbolThemeFontFamily}"
 							FontSize="{ThemeResource BreadcrumbBarChevronFontSize}"
 							Foreground="{ThemeResource BreadcrumbBarNormalForegroundBrush}"
 							IsTextScaleFactorEnabled="False"
-							Text="&#xE76C;"
-							Visibility="Collapsed" />
+							Style="{StaticResource DefaultButtonStyle}">
+							<FontIcon
+								x:Name="PART_ChevronTextBlock"
+								FontSize="12"
+								Glyph="&#xE76C;" />
+						</Button>
 
 						<VisualStateManager.VisualStateGroups>
 							<VisualStateGroup x:Name="ItemTypeStates">
@@ -229,12 +200,12 @@
 							<VisualStateGroup x:Name="InlineItemTypeStates">
 								<VisualState x:Name="Default">
 									<VisualState.Setters>
-										<Setter Target="PART_ChevronTextBlock.Text" Value="{ThemeResource BreadcrumbBarChevronLeftToRight}" />
+										<Setter Target="PART_ChevronTextBlock.Glyph" Value="{ThemeResource BreadcrumbBarChevronLeftToRight}" />
 									</VisualState.Setters>
 								</VisualState>
 								<VisualState x:Name="DefaultRTL">
 									<VisualState.Setters>
-										<Setter Target="PART_ChevronTextBlock.Text" Value="{ThemeResource BreadcrumbBarChevronRightToLeft}" />
+										<Setter Target="PART_ChevronTextBlock.Glyph" Value="{ThemeResource BreadcrumbBarChevronRightToLeft}" />
 									</VisualState.Setters>
 								</VisualState>
 								<VisualState x:Name="LastItem">
@@ -248,7 +219,7 @@
 								</VisualState>
 								<VisualState x:Name="Ellipsis">
 									<VisualState.Setters>
-										<Setter Target="PART_ChevronTextBlock.Text" Value="{ThemeResource BreadcrumbBarChevronLeftToRight}" />
+										<Setter Target="PART_ChevronTextBlock.Glyph" Value="{ThemeResource BreadcrumbBarChevronLeftToRight}" />
 										<Setter Target="PART_EllipsisTextBlock.Visibility" Value="Visible" />
 										<Setter Target="PART_ItemContentPresenter.Visibility" Value="Collapsed" />
 									</VisualState.Setters>
@@ -257,7 +228,7 @@
 									<VisualState.Setters>
 										<Setter Target="PART_EllipsisTextBlock.Visibility" Value="Visible" />
 										<Setter Target="PART_ItemContentPresenter.Visibility" Value="Collapsed" />
-										<Setter Target="PART_ChevronTextBlock.Text" Value="{ThemeResource BreadcrumbBarChevronRightToLeft}" />
+										<Setter Target="PART_ChevronTextBlock.Glyph" Value="{ThemeResource BreadcrumbBarChevronRightToLeft}" />
 									</VisualState.Setters>
 								</VisualState>
 							</VisualStateGroup>
