@@ -17,7 +17,6 @@ public partial class BreadcrumbBarEx : Control
 	private ItemsRepeater? _itemsRepeater = null;
 	private BreadcrumbBarLayout? _itemsRepeaterLayout = null;
 	private BreadcrumbBarExItem? _ellipsisBreadcrumbBarItem = null;
-	private BreadcrumbBarExItem? _lastBreadcrumbBarItem = null;
 	private int _focusedIndex = 1;
 
 	public BreadcrumbBarEx()

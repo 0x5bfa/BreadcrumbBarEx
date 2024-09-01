@@ -35,7 +35,7 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="local:BreadcrumbBarExItem">
-					<Grid x:Name="PART_LayoutRoot" CornerRadius="{TemplateBinding CornerRadius}">
+					<Grid ColumnSpacing="2" x:Name="PART_LayoutRoot" CornerRadius="{TemplateBinding CornerRadius}">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition x:Name="PART_ContentColumn" Width="Auto" />
 							<ColumnDefinition x:Name="PART_ChevronColumn" Width="Auto" />
@@ -206,15 +206,6 @@
 								<VisualState x:Name="DefaultRTL">
 									<VisualState.Setters>
 										<Setter Target="PART_ChevronTextBlock.Glyph" Value="{ThemeResource BreadcrumbBarChevronRightToLeft}" />
-									</VisualState.Setters>
-								</VisualState>
-								<VisualState x:Name="LastItem">
-									<VisualState.Setters>
-										<Setter Target="PART_ItemButton.Visibility" Value="Collapsed" />
-										<Setter Target="PART_ChevronTextBlock.Visibility" Value="Collapsed" />
-										<Setter Target="PART_LastItemContentPresenter.Visibility" Value="Visible" />
-										<Setter Target="PART_ItemButton.(Control.IsTemplateFocusTarget)" Value="False" />
-										<Setter Target="PART_LastItemContentPresenter.(Control.IsTemplateFocusTarget)" Value="True" />
 									</VisualState.Setters>
 								</VisualState>
 								<VisualState x:Name="Ellipsis">

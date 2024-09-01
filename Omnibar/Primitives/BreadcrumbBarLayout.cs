@@ -33,15 +33,17 @@ internal partial class BreadcrumbBarLayout : NonVirtualizingLayout
 	protected override Size MeasureOverride(NonVirtualizingLayoutContext context, Size availableSize)
 	{
 		_availableSize = availableSize;
-
 		Size accumulatedCrumbsSize = new(0, 0);
+
+		if (context.Children.Count is 0)
+			return accumulatedCrumbsSize;
 
 		for (int i = 0; i < context.Children.Count; i++)
 		{
 			var breadcrumbItem = (BreadcrumbBarExItem)context.Children[i];
 			breadcrumbItem.Measure(availableSize);
 
-			if (i is not 0)
+			if (i is not -1)
 			{
 				accumulatedCrumbsSize.Width += breadcrumbItem.DesiredSize.Width;
 				accumulatedCrumbsSize.Height = Math.Max(accumulatedCrumbsSize.Height, breadcrumbItem.DesiredSize.Height);
@@ -61,6 +63,9 @@ internal partial class BreadcrumbBarLayout : NonVirtualizingLayout
 
 	protected override Size ArrangeOverride(NonVirtualizingLayoutContext context, Size finalSize)
 	{
+		if (context.Children.Count is 0)
+			return new(0, 0);
+
 		int itemCount = context.Children.Count;
 		int indexOfFirstElementToRender = 0;
 		_firstRenderedItemIndexAfterEllipsis = (uint)(itemCount - 1);
@@ -76,7 +81,7 @@ internal partial class BreadcrumbBarLayout : NonVirtualizingLayout
 		float maxElementHeight = GetBreadcrumbBarItemsHeight(context, indexOfFirstElementToRender);
 
 		// If there is at least one element, we may render the ellipsis item
-		if (itemCount > 0 && _ellipsisButton is not null)
+		if (_ellipsisButton is not null)
 		{
 			if (_ellipsisIsRendered)
 			{
@@ -143,7 +148,7 @@ internal partial class BreadcrumbBarLayout : NonVirtualizingLayout
 		int itemCount = context.Children.Count;
 		float accumulatedLength = (float)context.Children[itemCount - 1].DesiredSize.Width + (float)(_ellipsisButton?.DesiredSize.Width ?? 0.0);
 
-		for (int i = itemCount - 2; i >= 0; --i)
+		for (int i = itemCount - 1; i >= 0; i--)
 		{
 			float newAccumulatedLength = accumulatedLength + (float)context.Children[i].DesiredSize.Width;
 			if (newAccumulatedLength > _availableSize.Width)

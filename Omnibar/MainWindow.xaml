@@ -32,13 +32,13 @@
 			Grid.Row="1"
 			Height="40"
 			Margin="12"
-			Padding="24,2"
+			Padding="24,0"
 			VerticalAlignment="Center"
 			Background="{ThemeResource LayerFillColorDefaultBrush}"
 			BorderBrush="{ThemeResource SystemColorControlAccentBrush}"
 			BorderThickness="2"
 			CornerRadius="20">
-			<Border Background="Black">
+			<Border>
 				<local:BreadcrumbBarEx VerticalAlignment="Center" ItemsSource="{x:Bind Items, Mode=OneWay}">
 					<local:BreadcrumbBarEx.ItemTemplate>
 						<DataTemplate x:DataType="local:StandardItem">

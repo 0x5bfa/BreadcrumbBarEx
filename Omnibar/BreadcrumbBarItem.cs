@@ -19,7 +19,6 @@ public partial class BreadcrumbBarExItem : ContentControl
 	private int _index;
 	private bool _isEllipsisDropDownItem;
 	private bool _isEllipsisItem;
-	private bool _isLastItem;
 
 	private Button? _itemButton = null;
 	private WeakReference? _parentBreadcrumb = null;
@@ -110,17 +109,6 @@ public partial class BreadcrumbBarExItem : ContentControl
 		UpdateItemTypeVisualState();
 	}
 
-	internal void SetPropertiesForLastItem()
-	{
-		Debug.Assert(!_isEllipsisDropDownItem);
-
-		_isEllipsisItem = false;
-		_isLastItem = true;
-
-		UpdateButtonVisualState(false);
-		UpdateInlineItemTypeVisualState(false);
-	}
-
 	internal void ResetVisualProperties()
 	{
 		if (_isEllipsisDropDownItem)
@@ -130,7 +118,6 @@ public partial class BreadcrumbBarExItem : ContentControl
 		else
 		{
 			_isEllipsisItem = false;
-			_isLastItem = false;
 
 			if (_itemButton is { } button)
 				button.Flyout = null;
@@ -148,7 +135,6 @@ public partial class BreadcrumbBarExItem : ContentControl
 		Debug.Assert(!_isEllipsisDropDownItem);
 
 		_isEllipsisItem = true;
-		_isLastItem = false;
 
 		InstantiateFlyout();
 
@@ -288,8 +274,6 @@ public partial class BreadcrumbBarExItem : ContentControl
 
 		if (_isEllipsisItem)
 			visualStateName = isLeftToRight ? _ellipsisStateName : _ellipsisRTLStateName;
-		else if (_isLastItem)
-			visualStateName = _lastItemStateName;
 		else if (isLeftToRight)
 			visualStateName = _defaultStateName;
 		else
@@ -305,10 +289,6 @@ public partial class BreadcrumbBarExItem : ContentControl
 		if (_itemButton is { } button)
 		{
 			string commonVisualStateName = "";
-
-			// If is last item: place Current as prefix for visual state
-			if (_isLastItem)
-				commonVisualStateName = _currentStateName;
 
 			if (!button.IsEnabled)
 				commonVisualStateName = commonVisualStateName + _disabledStateName;

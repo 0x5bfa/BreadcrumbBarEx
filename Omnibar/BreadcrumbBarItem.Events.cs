@@ -252,8 +252,6 @@ public partial class BreadcrumbBarExItem
 
 		if (_isEllipsisItem)
 			SetPropertiesForEllipsisItem();
-		else if (_isLastItem)
-			SetPropertiesForLastItem();
 		else
 			ResetVisualProperties();
 	}
