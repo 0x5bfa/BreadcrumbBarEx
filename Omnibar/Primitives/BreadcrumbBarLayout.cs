@@ -43,11 +43,8 @@ internal partial class BreadcrumbBarLayout : NonVirtualizingLayout
 			var breadcrumbItem = (BreadcrumbBarExItem)context.Children[i];
 			breadcrumbItem.Measure(availableSize);
 
-			if (i is not -1)
-			{
-				accumulatedCrumbsSize.Width += breadcrumbItem.DesiredSize.Width;
-				accumulatedCrumbsSize.Height = Math.Max(accumulatedCrumbsSize.Height, breadcrumbItem.DesiredSize.Height);
-			}
+			accumulatedCrumbsSize.Width += breadcrumbItem.DesiredSize.Width;
+			accumulatedCrumbsSize.Height = Math.Max(accumulatedCrumbsSize.Height, breadcrumbItem.DesiredSize.Height);
 		}
 
 		// Get ellipsis item

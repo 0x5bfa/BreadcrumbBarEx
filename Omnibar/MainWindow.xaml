@@ -38,7 +38,7 @@
 			BorderBrush="{ThemeResource SystemColorControlAccentBrush}"
 			BorderThickness="2"
 			CornerRadius="20">
-			<Border>
+			<Border HorizontalAlignment="Left" Background="Black">
 				<local:BreadcrumbBarEx VerticalAlignment="Center" ItemsSource="{x:Bind Items, Mode=OneWay}">
 					<local:BreadcrumbBarEx.ItemTemplate>
 						<DataTemplate x:DataType="local:StandardItem">
