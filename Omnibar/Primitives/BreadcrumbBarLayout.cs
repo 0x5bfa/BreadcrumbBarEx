@@ -83,19 +83,25 @@ internal partial class BreadcrumbBarLayout : NonVirtualizingLayout
 		// If there is at least one element, we may render the ellipsis item
 		if (_ellipsisButton is not null)
 		{
-			if (_ellipsisIsRendered)
-			{
-				Size elementSize = _ellipsisButton.DesiredSize;
-				Rect arrangeRect = new(accumulatedWidths, 0, elementSize.Width, maxElementHeight);
-				_ellipsisButton.Arrange(arrangeRect);
+			Size elementSize = _ellipsisButton.DesiredSize;
+			Rect arrangeRect = new(accumulatedWidths, 0, elementSize.Width, maxElementHeight);
+			_ellipsisButton.Arrange(arrangeRect);
 
-				accumulatedWidths += (float)elementSize.Width;
-			}
-			else
-			{
-				// Hide ellipsis item
-				_ellipsisButton.Arrange(new(0, 0, 0, 0));
-			}
+			accumulatedWidths += (float)elementSize.Width;
+
+			//if (_ellipsisIsRendered)
+			//{
+			//	Size elementSize = _ellipsisButton.DesiredSize;
+			//	Rect arrangeRect = new(accumulatedWidths, 0, elementSize.Width, maxElementHeight);
+			//	_ellipsisButton.Arrange(arrangeRect);
+
+			//	accumulatedWidths += (float)elementSize.Width;
+			//}
+			//else
+			//{
+			//	// Hide ellipsis item
+			//	_ellipsisButton.Arrange(new(0, 0, 0, 0));
+			//}
 		}
 
 		// For each item, if the item has an equal or larger index to the first element to render, then
