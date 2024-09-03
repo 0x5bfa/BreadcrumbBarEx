@@ -4,11 +4,11 @@ Proof of concept for our own custom breacrumbBar.
 
 ## Requirements
 
-- [] Use ItemsRepeater to show items
-- [] Create a custom layout deriving from NonVirtualizingLayout
-- [] Add ability to hide overflown items
-- [] Add ability to show ellipsis item
-- [] Add RTL support
+- [ ] Use ItemsRepeater to show items
+- [ ] Create a custom layout deriving from NonVirtualizingLayout
+- [ ] Add ability to hide overflown items
+- [ ] Add ability to show ellipsis item
+- [ ] Add RTL support
 
 ## Usage
 
